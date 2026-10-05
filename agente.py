@@ -9,7 +9,7 @@ from google.genai import types
 
 import config
 from llm import carregar_prompt, cliente, erro_transitorio
-from tools import conteudo, registro
+from tools import conteudo, contatos, registro
 
 log = logging.getLogger("jarvis.agente")
 
@@ -17,7 +17,10 @@ DIAS = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-
 
 # Ferramentas que mudam algo (planilha, rascunho, arquivo). Se uma delas rodar e a
 # resposta final falhar, a mensagem NÃO pode ser reenviada, senão a ação se repete.
-COM_EFEITO = {"registrar_dia", "rascunhar_post", "ajustar_post", "aprovar_post", "descartar_post"}
+COM_EFEITO = {
+    "registrar_dia", "rascunhar_post", "ajustar_post", "aprovar_post", "descartar_post",
+    "adicionar_contato", "atualizar_status", "registrar_interacao",
+}
 _execucoes: list[tuple[str, dict, dict]] = []
 
 
@@ -53,6 +56,11 @@ FERRAMENTAS = [_rastrear(f) for f in (
     conteudo.ajustar_post,
     conteudo.aprovar_post,
     conteudo.descartar_post,
+    contatos.adicionar_contato,
+    contatos.atualizar_status,
+    contatos.registrar_interacao,
+    contatos.consultar_contatos,
+    contatos.listar_followups_pendentes,
 )]
 
 
