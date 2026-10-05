@@ -15,7 +15,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import requests
 
-import config  # carrega o .env
+import config  # noqa: F401 — import usado pelo efeito colateral (carrega o .env)
 from tools.linkedin import TOKEN_PATH
 
 CLIENT_ID = os.environ["LINKEDIN_CLIENT_ID"]

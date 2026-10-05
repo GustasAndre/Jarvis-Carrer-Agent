@@ -1,0 +1,13 @@
+# Regras pragmáticas: erros reais (imports não usados, nomes indefinidos,
+# sintaxe) entram no CI desde o primeiro push. Preferências de estilo
+# (pyupgrade, except genérico, etc.) ficam de fora por enquanto, para não
+# quebrar o build com uma lista grande de mudanças não relacionadas ao que
+# está sendo validado. Dá pra apertar essas regras depois, aos poucos.
+line-length = 120
+
+[lint]
+select = ["E", "F", "W"]
+ignore = [
+    "E501",  # linha longa — várias docstrings/strings do projeto já passam de 120 colunas
+    "W292",  # newline final faltando em alguns arquivos — trivial, fora do escopo desta mudança
+]
